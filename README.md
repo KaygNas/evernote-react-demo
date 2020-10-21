@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+It was set up for practice for getting familar with react and other component.
+
+To get a quick look of the product, please view https://gayk-demo-5gjtnj7s570e473c-1253885021.tcloudbaseapp.com/index.html
+
+you can also clone the code and start by running the scripts below:
+
 ## Available Scripts
 
 In the project directory, you can run:
