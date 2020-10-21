@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'firebase';
 import Layout from './layout/layout';
 import Sider from './sider/sider';
 import Main from './main/main';
@@ -49,62 +48,53 @@ class App extends React.Component {
         })
     }
 
-    noteUpdate(id, noteObj) {
-        firebase
-            .firestore()
-            .collection('notes')
-            .doc(id)
-            .update({
-                title: noteObj.title,
-                content: noteObj.content,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
+    noteUpdate = (id, noteObj) => {
+        let notes = [...this.state.notes];
+        for (let note of notes) {
+            if (note.id === id) {
+                note.title = noteObj.title;
+                note.content = noteObj.content;
+                break;
+            }
+        }
+        localStorage.setItem("notes", JSON.stringify(notes));
+        this.setState({
+            notes: notes,
+        });
     }
 
-    newNote = async (title) => {
-        let note = {
-            id: '',
+    newNote = (title) => {
+        const note = {
+            id: Date.now() + title,
             title: title,
             content: '',
         };
-        await firebase
-            .firestore()
-            .collection('notes')
-            .add({
-                title: note.title,
-                content: note.content,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
+        let notes = [note, ...this.state.notes];
+        localStorage.setItem("notes", JSON.stringify(notes));
         this.setState({
+            notes: notes,
             selectedNote: note,
         });
     }
 
     deleteNote = async (note) => {
         await this.setState({ notes: this.state.notes.filter(_note => _note.id !== note.id) });
-        if (this.state.selectedNote.id === note.id) {
-            this.setState({ selectedNote: { id: "", title: "", content: "" } });
+        let selectedNote = {};
+        if (this.state.selectedNote.id === note.id && this.state.notes.length > 0) {
+            selectedNote = this.state.notes[0];
+        } else {
+            selectedNote = { id: "", title: "", content: "" };
         };
-
-        firebase
-            .firestore()
-            .collection('notes')
-            .doc(note.id)
-            .delete();
+        this.setState({ selectedNote: selectedNote });
+        localStorage.setItem("notes", JSON.stringify(this.state.notes));
     }
 
     componentDidMount() {
-        firebase
-            .firestore()
-            .collection('notes')
-            .onSnapshot(serverUpdate => {
-                const notes = serverUpdate.docs.map(_doc => {
-                    const data = _doc.data();
-                    data['id'] = _doc.id;
-                    return data;
-                });
-                this.setState({ notes: notes });
-            });
+        const notes = JSON.parse(localStorage.getItem("notes"));
+        if (!notes) {
+            localStorage.setItem("notes", JSON.stringify([]));
+        }
+        this.setState({ notes: notes });
     }
 }
 

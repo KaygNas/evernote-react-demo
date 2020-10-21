@@ -25,3 +25,5 @@ yarn-error.log*
 #extra files
 /tutorial
 /.vscode
+/config
+/scripts

@@ -53,7 +53,7 @@ class Main extends React.Component {
                 content: this.state.content,
             })
         }
-    }, 1500)
+    }, 1000)
 
     render() {
         const icon = this.props.isFolded ? <MenuUnfoldOutlined></MenuUnfoldOutlined> : <MenuFoldOutlined></MenuFoldOutlined>;
