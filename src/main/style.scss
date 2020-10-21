@@ -1,0 +1,46 @@
+$deep-blue: #001529;
+$evernote-green: #2dbe60;
+
+.main,
+.editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.editor {
+  margin: 0 2rem 2rem;
+}
+
+.ql-container {
+  flex: 1;
+}
+
+.main header {
+  position: relative;
+  font-size: 34px;
+  padding: 2rem 2rem 2rem 3rem;
+  margin-left: 2rem;
+}
+.fold-icon ~ input {
+  font-size: inherit;
+  width: 100%;
+  border-style: none;
+  outline: none;
+}
+.fold-icon ~ input:focus {
+  outline: none;
+}
+.fold-icon {
+  position: absolute;
+  font-size: 20px;
+  padding: 0.5rem;
+  left: 0;
+}
+
+.fold-icon:hover {
+  border-radius: 0.3rem;
+  color: #fff;
+  background-color: $evernote-green;
+  cursor: pointer;
+}
