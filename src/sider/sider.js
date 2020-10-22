@@ -30,7 +30,7 @@ class Sider extends React.Component {
     }
 
     render() {
-        console.log("start to render sider",this.state);
+        console.log("start to render sider", this.state);
         const notes = this.props.notes;
         const list = notes ?
             notes.map(note => <SiderItem
@@ -63,5 +63,8 @@ class Sider extends React.Component {
         )
     }
 }
+
+console.log("abc");
+
 
 export default Sider;
